@@ -12,7 +12,7 @@ async function initialize(){
 
 async function write(){
   nn.create('span')
-  .content(await get_word(1, 0, 0))
+  .content(await get_word(154, 2, 3))
   .addTo("body")
 }
 
@@ -21,7 +21,7 @@ async function get_sonnet(number){
   let to_search = await full_text.toString()
   let first = await to_search.search(number.toString())
   let last = await to_search.toString().search((number + 1).toString())
-  return await full_text.toString().slice(first + 1, last)
+  return await full_text.toString().slice(first + first.toString().length, last)
 }
 
 async function get_line(sonnet, number){
