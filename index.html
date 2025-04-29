@@ -3,7 +3,6 @@
 /* global nn*/
 
 let full_text
-let lines_made
 
 async function initialize(){
   let txt = await fetch("sonnets.txt")
@@ -11,8 +10,15 @@ async function initialize(){
   write()
 }
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max) + 1;
+}
+
+//console.log(getRandomInt(3))
+  
 async function write(){
-  document.body.innerText = ""
+  //document.body.innerText = await get_word()
+  document.body.innerText = await new_sonnet()
   
   nn.create('img')
     .set({ src:  "https://pbs.twimg.com/profile_images/988162380650766337/DRvS5I43_400x400.jpg"
@@ -20,16 +26,39 @@ async function write(){
     .css({
       position: 'absolute',
       left: 0,
-      top: 300,
+      top: 520,
     width: 200
     })
     .addTo('body')
 }
 //GENERATE A TERRIBLE SONNET
 async function new_sonnet(){
+  let string = ""
   //here comes the hard part
+  for (let i = 1; i < 15; i++){
+    string += await new_line(i) + "\n"
+  }
+  return string
 }
-
+//This series of functions generates "new" material.  
+async function new_line(number){
+  let string = ""
+  for (let i = 0; i < 11; i ++){
+    if (i === 10){
+      string += "\n"
+    }
+    else{
+      let idea = await get_word(await getRandomInt(154), number, i) + " "
+      if (idea === "undefined "){
+        string += ""
+      }
+      else{
+        string += idea
+      }
+    } 
+  }
+  return string
+}
 //This right here, my friend, is a series of functions...
   // it's used to get specific words from Shakespeare's sonnets.
 //GET A SONNET
