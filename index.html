@@ -1,0 +1,36 @@
+<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
+<script>
+/* global nn*/
+
+let full_text
+
+async function initialize(){
+  let txt = await fetch("sonnets.txt")
+  full_text = await txt.text()
+  write()
+}
+
+async function write(){
+  nn.create('span')
+  .content(await get_line(1, 1))
+  .addTo("body")
+}
+
+//GET A SONNET
+async function get_sonnet(number){
+  let to_search = await full_text.toString()
+  let first = await to_search.search(number.toString())
+  let last = await to_search.toString().search((number + 1).toString())
+  return await full_text.toString().slice(first + 1, last)
+}
+
+async function get_line(sonnet, number){
+  let to_search = await get_sonnet(sonnet)
+  const lines = await to_search.split("\n");
+  //console.log(lines)
+  return lines[number]
+}
+
+nn.on('load', initialize)
+
+</script>
