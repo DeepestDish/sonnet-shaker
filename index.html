@@ -3,6 +3,7 @@
 /* global nn*/
 
 let full_text
+let lines_made
 
 async function initialize(){
   let txt = await fetch("sonnets.txt")
@@ -11,11 +12,26 @@ async function initialize(){
 }
 
 async function write(){
-  nn.create('span')
-  .content(await get_word(154, 2, 3))
-  .addTo("body")
+  document.body.innerText = ""
+  
+  nn.create('img')
+    .set({ src:  "https://pbs.twimg.com/profile_images/988162380650766337/DRvS5I43_400x400.jpg"
+        })
+    .css({
+      position: 'absolute',
+      left: 0,
+      top: 300,
+    width: 200
+    })
+    .addTo('body')
+}
+//GENERATE A TERRIBLE SONNET
+async function new_sonnet(){
+  //here comes the hard part
 }
 
+//This right here, my friend, is a series of functions...
+  // it's used to get specific words from Shakespeare's sonnets.
 //GET A SONNET
 async function get_sonnet(number){
   let to_search = await full_text.toString()
